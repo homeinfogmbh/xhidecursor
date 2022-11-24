@@ -36,6 +36,6 @@ fn main() {
     }
 
     while is_running.load(Ordering::SeqCst) {
-        sleep(Duration::from_secs(1));
+        sleep(Duration::from_millis(1));
     }
 }
