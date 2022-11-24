@@ -10,7 +10,7 @@ impl<'a> Display<'a> {
     pub fn open(name: Option<impl Into<String>>) -> Option<Self> {
         match name {
             Some(name) => match CString::new(name.into()) {
-                Ok(name) => Self::open_raw(name.as_ptr() as *const c_char),
+                Ok(name) => Self::open_raw(name.as_ptr()),
                 Err(_) => None,
             },
             None => Self::open_raw(&0),
