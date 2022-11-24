@@ -1,10 +1,9 @@
 use clap::Parser;
 use ctrlc::set_handler;
-use std::ffi::CString;
 use std::process::exit;
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::Arc;
-use xhidecursor::x_hide_cursor;
+use xhidecursor::{x_hide_cursor, x_open_display};
 
 #[derive(Parser)]
 #[clap(about, author, version)]
@@ -22,14 +21,11 @@ fn main() {
     })
     .expect("Error setting Ctrl-C handler");
 
-    match CString::new(args.display) {
-        Ok(display) => {
-            if !x_hide_cursor(&display) {
-                exit(1);
-            }
-        }
-        Err(err) => {
-            eprintln!("Cannot parse CString: {}", err);
+    match x_open_display(&args.display) {
+        Some(display) => x_hide_cursor(display),
+        None => {
+            eprintln!("Cannot open display: {}", args.display);
+            exit(1);
         }
     }
 
