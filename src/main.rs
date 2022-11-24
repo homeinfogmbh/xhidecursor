@@ -1,8 +1,5 @@
 use clap::Parser;
-use ctrlc::set_handler;
 use std::process::exit;
-use std::sync::atomic::{AtomicBool, Ordering};
-use std::sync::Arc;
 use std::thread::sleep;
 use std::time::Duration;
 use x11oo::Display;
@@ -16,12 +13,6 @@ struct Args {
 
 fn main() {
     let args = Args::parse();
-    let running = Arc::new(AtomicBool::new(true));
-    let is_running = running.clone();
-    set_handler(move || {
-        running.store(false, Ordering::SeqCst);
-    })
-    .expect("Error setting Ctrl-C handler.");
 
     match Display::open(args.display) {
         Some(mut display) => {
@@ -35,7 +26,7 @@ fn main() {
         }
     }
 
-    while is_running.load(Ordering::SeqCst) {
-        sleep(Duration::from_millis(1));
+    loop {
+        sleep(Duration::MAX)
     }
 }
