@@ -5,7 +5,7 @@ use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::Arc;
 use std::thread::sleep;
 use std::time::Duration;
-use xhidecursor::Display;
+use x11oo::Display;
 
 #[derive(Parser)]
 #[clap(about, author, version)]
