@@ -19,6 +19,6 @@ pub fn x_open_display<'a>(name: impl Into<String>) -> Option<&'a mut Display> {
 
 pub fn x_sync(display: &mut Display, discard: bool) {
     unsafe {
-        XSync(display, if discard { 1 } else { 0 });
+        XSync(display, discard as i32);
     }
 }
