@@ -32,7 +32,7 @@ impl<'a> Display<'a> {
     pub fn sync(&mut self, discard: bool) {
         match unsafe { XSync(self.display, discard as i32) } {
             1 => (),
-            _ => unreachable!("XSync always returns 1"),
+            _ => unreachable!("XSync always returns 1."),
         }
     }
 }

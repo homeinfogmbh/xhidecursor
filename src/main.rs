@@ -21,7 +21,7 @@ fn main() {
     set_handler(move || {
         running.store(false, Ordering::SeqCst);
     })
-    .expect("Error setting Ctrl-C handler");
+    .expect("Error setting Ctrl-C handler.");
 
     match Display::open(args.display) {
         Some(mut display) => {
@@ -30,7 +30,7 @@ fn main() {
             display.sync(true);
         }
         None => {
-            eprintln!("Cannot open display");
+            eprintln!("Cannot open display.");
             exit(1);
         }
     }
