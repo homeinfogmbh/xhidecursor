@@ -3,7 +3,7 @@ use ctrlc::set_handler;
 use std::process::exit;
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::Arc;
-use xhidecursor::{x_default_root_window, x_fixes_hide_cursor, x_open_display, x_sync};
+use xhidecursor::Display;
 
 #[derive(Parser)]
 #[clap(about, author, version)]
@@ -21,11 +21,11 @@ fn main() {
     })
     .expect("Error setting Ctrl-C handler");
 
-    match x_open_display(&args.display) {
-        Some(display) => {
-            let root = x_default_root_window(display);
-            x_fixes_hide_cursor(display, root);
-            x_sync(display, true);
+    match Display::open(&args.display) {
+        Some(mut display) => {
+            let root = display.default_root_window();
+            display.hide_cursor(root);
+            display.sync(true);
         }
         None => {
             eprintln!("Cannot open display: {}", args.display);
