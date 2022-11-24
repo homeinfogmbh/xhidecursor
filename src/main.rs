@@ -10,8 +10,8 @@ use xhidecursor::Display;
 #[derive(Parser)]
 #[clap(about, author, version)]
 struct Args {
-    #[clap(short, long, name = "display", default_value_t = String::from(":0"))]
-    pub display: String,
+    #[clap(short, long, name = "display", default_value = None)]
+    pub display: Option<String>,
 }
 
 fn main() {
@@ -23,14 +23,14 @@ fn main() {
     })
     .expect("Error setting Ctrl-C handler");
 
-    match Display::open(&args.display) {
+    match Display::open(args.display) {
         Some(mut display) => {
             let root = display.default_root_window();
             display.hide_cursor(root);
             display.sync(true);
         }
         None => {
-            eprintln!("Cannot open display: {}", args.display);
+            eprintln!("Cannot open display");
             exit(1);
         }
     }

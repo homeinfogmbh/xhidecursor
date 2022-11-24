@@ -7,12 +7,18 @@ pub struct Display<'a> {
 }
 
 impl<'a> Display<'a> {
-    pub fn open(name: impl Into<String>) -> Option<Self> {
-        match CString::new(name.into()) {
-            Ok(name) => unsafe { XOpenDisplay(name.as_ptr() as *const c_char).as_mut() }
-                .map(|display| Self { display }),
-            Err(_) => None,
+    pub fn open(name: Option<impl Into<String>>) -> Option<Self> {
+        match name {
+            Some(name) => match CString::new(name.into()) {
+                Ok(name) => Self::open_raw(name.as_ptr() as *const c_char),
+                Err(_) => None,
+            },
+            None => Self::open_raw(&0),
         }
+    }
+
+    fn open_raw(display: *const c_char) -> Option<Self> {
+        unsafe { XOpenDisplay(display).as_mut() }.map(|display| Self { display })
     }
 
     pub fn default_root_window(&mut self) -> u64 {
