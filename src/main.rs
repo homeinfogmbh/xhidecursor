@@ -3,6 +3,8 @@ use ctrlc::set_handler;
 use std::process::exit;
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::Arc;
+use std::thread::sleep;
+use std::time::Duration;
 use xhidecursor::Display;
 
 #[derive(Parser)]
@@ -33,5 +35,7 @@ fn main() {
         }
     }
 
-    while is_running.load(Ordering::SeqCst) {}
+    while is_running.load(Ordering::SeqCst) {
+        sleep(Duration::from_secs(1));
+    }
 }
