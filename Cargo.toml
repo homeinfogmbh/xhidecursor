@@ -8,4 +8,4 @@ edition = "2021"
 [dependencies]
 clap = { version = "4.0.23", features = ["derive"] }
 ctrlc = "3.2.3"
-x11 = { git = "https://github.com/coNQP/x11-rs", version = "2.20.1", features =["xlib", "xfixes"] }
+x11 = { version = "2.20.1", features =["xlib", "xfixes"] }
