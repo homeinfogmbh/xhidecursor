@@ -27,7 +27,7 @@ impl<'a> Display<'a> {
         unsafe {
             match XSync(self.display, discard as i32) {
                 1 => (),
-                _ => unreachable!("XSync did not return 1"),
+                _ => unreachable!("XSync always returns 1"),
             }
         }
     }
