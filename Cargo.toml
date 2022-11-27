@@ -5,4 +5,4 @@ edition = "2021"
 
 [dependencies]
 clap = { version = "4.0.23", features = ["derive"] }
-x11oo = { version = "0.1.3", features = ["xfixes"] }
+x11oo = { path = "../x11oo", features = ["xfixes"] }

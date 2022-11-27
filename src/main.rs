@@ -15,18 +15,17 @@ fn main() {
     let args = Args::parse();
 
     match Display::open(args.display) {
-        Some(mut display) => {
-            let root = display.default_root_window();
-            display.hide_cursor(root);
+        Ok(display) => {
+            display.hide_cursor(display.default_root_window());
             display.sync(true);
+
+            loop {
+                sleep(Duration::MAX)
+            }
         }
-        None => {
-            eprintln!("Cannot open display.");
+        Err(err) => {
+            eprintln!("{}", err);
             exit(1);
         }
-    }
-
-    loop {
-        sleep(Duration::MAX)
     }
 }
