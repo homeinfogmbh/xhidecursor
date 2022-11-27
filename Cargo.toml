@@ -5,4 +5,4 @@ edition = "2021"
 
 [dependencies]
 clap = { version = "4.0.23", features = ["derive"] }
-x11oo = { version = "0.1.4", features = ["xfixes"] }
+x11oo = { version = "0.2.3", features = ["xfixes"] }
