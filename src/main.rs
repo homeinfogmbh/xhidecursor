@@ -23,7 +23,7 @@ fn main() {
         Ok(display) => {
             display.hide_cursor(display.default_root_window());
             display.sync(true);
-            wait_for_sigterm();
+            wait_for_term_signal();
         }
         Err(err) => {
             eprintln!("{}", err);
@@ -32,7 +32,7 @@ fn main() {
     }
 }
 
-fn wait_for_sigterm() {
+fn wait_for_term_signal() {
     match Signals::new([SIGINT, SIGTERM]) {
         Ok(mut signals) => {
             thread::spawn(move || {
