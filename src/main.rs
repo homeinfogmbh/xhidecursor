@@ -12,20 +12,16 @@ struct Args {
 }
 
 fn main() {
-    let args = Args::parse();
+    let display = Display::open(Args::parse().display).unwrap_or_else(|err| {
+        eprintln!("{}", err);
+        exit(1);
+    });
 
-    match Display::open(args.display) {
-        Ok(display) => {
-            display.hide_cursor(display.default_root_window());
-            display.sync(true);
+    display
+        .hide_cursor(display.default_root_window())
+        .sync(true);
 
-            loop {
-                sleep(Duration::MAX);
-            }
-        }
-        Err(err) => {
-            eprintln!("{}", err);
-            exit(1);
-        }
+    loop {
+        sleep(Duration::MAX);
     }
 }
