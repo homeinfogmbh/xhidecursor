@@ -13,13 +13,12 @@ struct Args {
 
 fn main() {
     let display = Display::open(Args::parse().display).unwrap_or_else(|err| {
-        eprintln!("{}", err);
+        eprintln!("{err}");
         exit(1);
     });
 
-    display
-        .hide_cursor(display.default_root_window())
-        .sync(true);
+    display.hide_cursor(display.default_root_window());
+    display.sync(true);
 
     loop {
         sleep(Duration::MAX);
