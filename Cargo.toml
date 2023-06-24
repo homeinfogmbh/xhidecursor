@@ -1,8 +1,8 @@
 [package]
 name = "xhidecursor"
-version = "0.1.2"
+version = "0.1.3"
 edition = "2021"
 
 [dependencies]
 clap = { version = "4.2.5", features = ["derive"] }
-x11oo = { version = "0.4.0", features = ["xfixes"] }
+x11oo = { version = "0.4.1", features = ["xfixes"] }
